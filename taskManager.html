@@ -4,27 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="taskManager.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Task Manager</h1>
-        <div id="auth">
-            <input type="text" id="usernameInput" placeholder="Enter username">
-            <input type="password" id="passwordInput" placeholder="Enter password">
-            <button id="loginButton">Login</button>
-            <button id="registerButton">Register</button>
-        </div>
-        <div id="taskManager" style="display: none;">
-            <div class="task-input">
-                <input type="text" id="taskInput" placeholder="Enter a new task">
-                <input type="text" id="descriptionInput" placeholder="Enter a description">
-                <button id="addTaskButton">Add Task</button>
+    <div class="container glass">
+        <header class="clean-hero">
+            <div class="clean-header">
+                <span class="clean-logo">
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="clean-logo-gradient" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#7ad1ff"/>
+                                <stop offset="1" stop-color="#e0e7ef"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="4" y="4" width="36" height="36" rx="10" fill="url(#clean-logo-gradient)"/>
+                        <rect x="12" y="12" width="20" height="20" rx="5" fill="#fff"/>
+                        <path d="M18 22h8M22 18v8" stroke="#7ad1ff" stroke-width="2.2" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <h1 class="clean-title">
+                    <span class="clean-task">Task</span> <span class="clean-manager">Manager</span>
+                </h1>
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">
+                    <span class="theme-switch-track">
+                        <span class="theme-switch-thumb"></span>
+                        <span class="theme-switch-moon" aria-hidden="true">🌙</span>
+                        <span class="theme-switch-sun" aria-hidden="true">☀️</span>
+                    </span>
+                </button>
             </div>
-            <ul id="taskList"></ul>
-            <button id="logoutButton">Logout</button>
-        </div>
+            <div class="clean-xp-bar-wrap">
+                <div class="clean-xp-bar-bg">
+                    <div class="clean-xp-bar-fill" style="width: 40%"></div>
+                </div>
+                <span class="clean-xp-label">XP: 400 / 1000</span>
+            </div>
+            <p class="clean-subtitle">Complete tasks to earn XP and level up!</p>
+        </header>
+        <main>
+            <section id="auth" class="card auth-card">
+                <h2 class="section-title">Sign In</h2>
+                <div class="input-group">
+                    <input type="text" id="usernameInput" placeholder="Username" aria-label="Username">
+                    <input type="password" id="passwordInput" placeholder="Password" aria-label="Password">
+                </div>
+                <div class="auth-buttons">
+                    <button id="loginButton">Login</button>
+                    <button id="registerButton" class="secondary">Register</button>
+                </div>
+            </section>
+            <section id="taskManager" class="card task-card" style="display: none;">
+                <h2 class="section-title">My Tasks</h2>
+                <form class="task-input" id="taskForm" autocomplete="off">
+                    <div class="input-row">
+                        <input type="text" id="taskInput" placeholder="Task title" aria-label="Task title" required>
+                        <input type="text" id="descriptionInput" placeholder="Description" aria-label="Description">
+                    </div>
+                    <div class="input-row">
+                        <select id="categoryInput" aria-label="Category">
+                            <option value="">Category</option>
+                            <option value="Work">Work</option>
+                            <option value="Personal">Personal</option>
+                            <option value="Urgent">Urgent</option>
+                        </select>
+                        <input type="date" id="dueDateInput" aria-label="Due date">
+                        <select id="colorTagInput" aria-label="Color tag">
+                            <option value="">Tag Color</option>
+                            <option value="#7ad1ff" style="color:#222;background:#7ad1ff;">Blue</option>
+                            <option value="#ffe156" style="color:#222;background:#ffe156;">Yellow</option>
+                            <option value="#e74c3c" style="color:#fff;background:#e74c3c;">Red</option>
+                            <option value="#00ffe0" style="color:#222;background:#00ffe0;">Aqua</option>
+                            <option value="#38b6ff" style="color:#fff;background:#38b6ff;">Sky</option>
+                            <option value="#bfa100" style="color:#fff;background:#bfa100;">Gold</option>
+                            <option value="#6b7a8f" style="color:#fff;background:#6b7a8f;">Gray</option>
+                        </select>
+                        <button id="addTaskButton" type="submit">Add</button>
+                    </div>
+                </form>
+                <div class="task-controls">
+                    <input type="text" id="searchInput" placeholder="Search tasks..." aria-label="Search tasks">
+                    <select id="filterCategory" aria-label="Filter by category">
+                        <option value="">All</option>
+                        <option value="Work">Work</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Urgent">Urgent</option>
+                    </select>
+                    <select id="filterColorTag" aria-label="Filter by color tag">
+                        <option value="">All Colors</option>
+                        <option value="#7ad1ff" style="color:#222;background:#7ad1ff;">Blue</option>
+                        <option value="#ffe156" style="color:#222;background:#ffe156;">Yellow</option>
+                        <option value="#e74c3c" style="color:#fff;background:#e74c3c;">Red</option>
+                        <option value="#00ffe0" style="color:#222;background:#00ffe0;">Aqua</option>
+                        <option value="#38b6ff" style="color:#fff;background:#38b6ff;">Sky</option>
+                        <option value="#bfa100" style="color:#fff;background:#bfa100;">Gold</option>
+                        <option value="#6b7a8f" style="color:#fff;background:#6b7a8f;">Gray</option>
+                    </select>
+                </div>
+                <ul id="taskList"></ul>
+                <div style="display:flex;gap:8px;margin:12px 0 0 0;">
+                    <button id="undoButton" type="button" class="secondary" title="Undo (Ctrl+Z)">Undo</button>
+                    <button id="redoButton" type="button" class="secondary" title="Redo (Ctrl+Y)">Redo</button>
+                    <button id="logoutButton" class="secondary" aria-label="Logout">Logout</button>
+                </div>
+            </section>
+        </main>
+        <footer class="footer">
+            <p>Made with <span class="accent">&#10084;</span> for your productivity &mdash; <span class="year"></span></p>
+        </footer>
     </div>
     <script src="taskManager.js"></script>
+    <script>
+    // Theme toggle switch logic (modern switch)
+    const themeToggle = document.getElementById('themeToggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    function setTheme(mode) {
+      document.body.classList.toggle('dark-mode', mode === 'dark');
+      localStorage.setItem('theme', mode);
+      // No need to manually animate thumb, CSS handles it
+    }
+    function getTheme() {
+      return localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+    }
+    setTheme(getTheme());
+    themeToggle.addEventListener('click', () => {
+      setTheme(document.body.classList.contains('dark-mode') ? 'light' : 'dark');
+    });
+    window.addEventListener('DOMContentLoaded', () => {
+      setTheme(getTheme());
+    });
+    </script>
 </body>
 </html>
