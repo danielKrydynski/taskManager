@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const descriptionInput = document.getElementById('descriptionInput');
     const categoryInput = document.getElementById('categoryInput');
     const dueDateInput = document.getElementById('dueDateInput');
-    const colorTagInput = document.getElementById('colorTagInput');
+    // const colorTagInput = document.getElementById('colorTagInput');
     const addTaskButton = document.getElementById('addTaskButton');
     const taskForm = document.getElementById('taskForm');
     const taskList = document.getElementById('taskList');
@@ -47,9 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const descriptionText = descriptionInput.value.trim();
         const category = categoryInput.value;
         const dueDate = dueDateInput.value;
-        const colorTag = colorTagInput.value;
+        // const colorTag = colorTagInput.value;
         if (taskText) {
-            addTask({ taskText, descriptionText, category, dueDate, colorTag });
+            addTask({ taskText, descriptionText, category, dueDate });
             taskForm.reset();
         }
     });
@@ -116,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
             descriptionText: task.descriptionText,
             category: task.category || '',
             dueDate: task.dueDate || '',
-            colorTag: task.colorTag || '',
             subtasks: []
         });
         saveTasks();
@@ -130,15 +129,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const newDescriptionText = prompt('Edit your description:', t.descriptionText);
         const newCategory = prompt('Edit category (Work, Personal, Urgent):', t.category);
         const newDueDate = prompt('Edit due date (YYYY-MM-DD):', t.dueDate);
-        const newColorTag = prompt('Edit color tag (hex, e.g. #7ad1ff):', t.colorTag || '');
+        // const newColorTag = prompt('Edit color tag (hex, e.g. #7ad1ff):', t.colorTag || '');
         if (newTaskText && newDescriptionText) {
             tasks[idx] = {
                 ...tasks[idx],
                 taskText: newTaskText.trim(),
                 descriptionText: newDescriptionText.trim(),
                 category: newCategory || '',
-                dueDate: newDueDate || '',
-                colorTag: newColorTag || ''
+                dueDate: newDueDate || ''
             };
         saveTasks();
         renderAndNotifyTasks();
@@ -281,8 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let filtered = tasks;
         const search = searchInput.value.trim().toLowerCase();
         const cat = filterCategory.value;
-        const filterColorTag = document.getElementById('filterColorTag');
-        const colorTag = filterColorTag ? filterColorTag.value : '';
+        // Color tag filtering removed
         if (search) {
             filtered = filtered.filter(t =>
                 t.taskText.toLowerCase().includes(search) ||
@@ -291,9 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (cat) {
             filtered = filtered.filter(t => t.category === cat);
-        }
-        if (colorTag) {
-            filtered = filtered.filter(t => t.colorTag === colorTag);
         }
         const now = new Date();
         if (filtered.length === 0) {
@@ -338,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
             li.innerHTML = `
                 <label style="display:inline-flex;align-items:center;gap:6px;margin-bottom:2px;">
                   <input type="checkbox" class="main-task-checkbox" ${task.completed ? 'checked' : ''} aria-label="Mark task as complete" />
-                  ${task.colorTag ? `<span class=\"color-tag\" style=\"background:${task.colorTag}\"></span>` : ''}
+                  
                   <span class="task-title">${task.taskText}</span>
                 </label>
                 <span class="task-meta">
